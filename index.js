@@ -32,7 +32,7 @@ function translate(text, opts) {
     return token.get(text).then(function (token) {
         var url = 'https://translate.google.com/translate_a/single';
         var data = {
-            client: 't',
+            client: 'gtx',
             sl: opts.from,
             tl: opts.to,
             hl: opts.to,
@@ -49,7 +49,7 @@ function translate(text, opts) {
 
         return url + '?' + querystring.stringify(data);
     }).then(function (url) {
-        return got(url).then(function (res) {
+        return got(url, { headers: { 'user-agent': 'Mozilla/5.0' } }).then(function (res) {
             var result = {
                 text: '',
                 from: {
